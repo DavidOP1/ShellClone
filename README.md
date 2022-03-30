@@ -21,4 +21,5 @@ Running the Server:
 4. Second method to run is to type: gcc server.c -o name , you can type whatever name with no space and hit enter , then type: ./name and you have the shell.
 
 *Open questions are answered in the comments as requested , each answer is located at the function which was required to write at the same question.
+
 *I did not make a make file since I only made one C file for each program (server & shell)
