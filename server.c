@@ -73,7 +73,13 @@ int main(int argc, char const *argv[])
                 bzero(buffer,SIZE);
                 valread = read( new_socket , buffer, SIZE);
                 execl("/bin/sh","sh","-c",buffer,(char*)NULL);
+                fflush(stdout);
             }
+         }
+        else if (strcmp(buffer,"close"))
+        {
+            printf("%s\n",buffer);
+            fflush(stdout);
         }
     }
     sendMessage(new_socket,"ACK");
