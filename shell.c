@@ -24,11 +24,10 @@ void sendMessage(int sock,char *output){
 int createClient(){
   int sock = 0, valread;
     struct sockaddr_in serv_addr;
-    char *hello = "Hello from client";
     char buffer[SIZE] = {0};
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
-        printf("\n Socket creation error \n");
+        printf("\n Error in creating socket\n");
         return -1;
     }
    
@@ -103,7 +102,7 @@ memset(dirNames,0,strlen(dirNames));
              strcat(dirNames," ");
            }
            printf("\n");
-           if (tcp_mode){
+            if (tcp_mode){
              sendMessage(sock,dirNames);
              bzero(dirNames,0);
            }
@@ -131,7 +130,7 @@ void CD(char* token, const char *s){
       if(strcmp("..",string)){
         strcat(cwd,"/");
         strcat(cwd,string);
-        //Section 7 answer: chdir() is a system call/library call?
+        //Section 7 answer: chdir() is a system call
         chdir(cwd);
         bzero(cwd,0);
         //!-------------------------------------CD .. -------------------------------------------!
@@ -150,12 +149,7 @@ int dest(char *dest1,FILE *fileSrc){
     printf("Failed to open %s file!\n",dest1);
     return 0;
   }
-  //Section 10 answer: fputc/fgetc is a system call / library call ?
-  // c=fgetc(fileSrc);
-  // while(c!=EOF){
-  //   fputc(c,fileDest);
-  //   c=fgetc(fileSrc);
-  // }
+  //Section 10 answer: my implementation using fwrite()/fopen() and fclose() are all library calls.
   while(feof(fileSrc)==0){
    if((c=fread(buffer,1,sizeof(buffer),fileSrc))!=sizeof(buffer)){
     if (ferror(fileSrc)!=0)
@@ -210,7 +204,7 @@ void System(char* buffer, char* token, const char* s,int parentPid,int tcp_mode,
            strcat(buffer,token); 
            if ((token=strtok(NULL,s))==NULL)    break;  
         }
-      //Section 8 answer: system() is system call \ library call?
+      //Section 8 answer: system() is a library call
       //Section 8 answer: //system(buffer); system() in a commenct as requested in section 9.
       if(!tcp_mode){
       fork();
@@ -267,7 +261,10 @@ int main(){
         //!---------------------------------------TCP PORT COMMAND------------------------------------------!
         if(!strcmp(string,"TCP PORT")){
           sock=TCP_PORT();
-          tcp_mode=1;
+          if (sock>=0)
+          {
+            tcp_mode=1;
+          }
           continue;
         }
         //!-------------------------------------------LOCAL COMMAND---------------------------------------!
@@ -304,7 +301,7 @@ int main(){
     }
     //!-------------------------------------DELETE command----------------------------------------------!
     else if(!strcmp(buffer,"DELETE")){
-      //Section 11 answer: unlink() is a system call/library call?
+      //Section 11 answer: unlink() is a system call
       if(unlink(token)){
         printf("Unable to delete %s! \n" ,token);
       }
