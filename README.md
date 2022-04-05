@@ -23,3 +23,12 @@ Running the Server:
 *Open questions are answered in the comments as requested , each answer is located at the function which was required to write at the same question.
 
 *I did not make a make file since I only made one C file for each program (server & shell)
+
+Output examples: 
+
+
+![local](https://user-images.githubusercontent.com/54214707/161751939-c8dc085b-ed59-4997-b5fe-932e3c5725fa.PNG)
+
+
+![server](https://user-images.githubusercontent.com/54214707/161751945-87200e51-84d3-4c38-ae09-bbce815d998a.PNG)
+
